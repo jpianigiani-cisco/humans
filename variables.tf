@@ -8,6 +8,9 @@ variable "az1" {type = "string"}
 variable "ec2_instance_ami" {type = "string"}
 variable "ec2_instance_type_human" {type = "string"}
 variable "keyname" {type = "string"}
+variable "DEV-frontend-nodes-public-ips" {type = "string"}
+variable "VAL-frontend-nodes-public-ips" {type = "string"}
+variable "PRO-frontend-nodes-public-ips" {type = "string"}
 
 # ec2 instance type
 variable "ec2_instance_type_human" {

@@ -103,4 +103,33 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
          }
          #user_data = file("${path.module}/cloud-init-backend.yaml")
        }
-       
+
+        resource "null_resource" "backend-config"{ 
+
+         #provisioner "remote-exec"{
+         #            inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
+         #}
+         triggers = {
+            configfile = templatefile (   "${path.module}/backend.sh" , 
+                                          #{backendip = aws_instance.ec2_backend.private_ip}
+                                          {backendip = aws_instance.ec2_backend.public_dns}
+            )
+         }
+         provisioner "file" {
+            content     = self.triggers.configfile
+               destination = "/tmp/backend.sh"
+         }
+         provisioner "remote-exec" {
+               inline = ["sudo chmod a+x /tmp/backend.sh",
+                        "sudo /tmp/backend.sh",]
+         }
+         connection {
+               type        = "ssh"
+               user        = "ubuntu"
+               private_key = "${file("~/.ssh/${var.keyname}.pem")}"
+               host        = aws_instance.ec2_backend.public_dns
+               agent       = false
+
+            }
+      
+      }
