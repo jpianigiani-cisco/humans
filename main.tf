@@ -45,7 +45,7 @@ resource "aws_security_group" "human_sg" {
       }
       }
 resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
-      security_group_id = aws_security_group.frontend_sg.id
+      security_group_id = aws_security_group.human_sg.id
       cidr_ipv4         = "0.0.0.0/0"
       from_port         = 22
       ip_protocol       = "tcp"
@@ -53,7 +53,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
       }
 
       resource "aws_vpc_security_group_ingress_rule" "allow_in_1111_ipv4_frontend" {
-      security_group_id = aws_security_group.frontend_sg.id
+      security_group_id = aws_security_group.human_sg.id
       cidr_ipv4         = "0.0.0.0/0"
       from_port         = 1
       ip_protocol       = "tcp"
@@ -61,7 +61,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
       }
       
       resource "aws_vpc_security_group_ingress_rule" "allow_in_icmp_ipv4_frontend" {
-         security_group_id = aws_security_group.frontend_sg.id
+         security_group_id = aws_security_group.human_sg.id
          cidr_ipv4         = aws_vpc.teashop_office.cidr_block
          ip_protocol       = "icmp"
          from_port         = -1
