@@ -23,7 +23,11 @@ resource "aws_subnet" "corporate_subnet" {
          availability_zone = var.az1
 
          tags = {
-            Name = format("mcd-demo-%s-%s-%s-subnet-%s",var.environment_list[count.index],var.application_name,var.tfrun_identifier)
+            Name = format(
+               "mcd-demo-%s-%s-subnet-%s",
+               var.environment_list[count.index],
+               var.application_name,
+               var.tfrun_identifier)
             Tier = "humans"
             Application = var.application_name
             Environment = var.environment_list[count.index]
