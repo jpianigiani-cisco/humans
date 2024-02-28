@@ -18,7 +18,7 @@ resource "aws_vpc" "teashop_office" {
 
 resource "aws_subnet" "corporate_subnet" {  
          count =length(var.environment_list)
-         vpc_id            = aws_vpc.teashop_office[count.index].id
+         vpc_id            = aws_vpc.teashop_office.id
          cidr_block        = local.corporate_subnets_list_vpc[count.index]
          availability_zone = var.az1
 
@@ -94,8 +94,8 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
          tags = {
             Name = format("mcd-demo-humans-%s-%s-%s-%s",var.application_name,var.environment_list[count.index],var.humans[count.index],var.tfrun_identifier)
             #Name = "mcd-demo-teashop-backend"
-            Tier = "backend"
-            Application = var.application_name
+            Tier = "humans"
+            Application = var.humans[count.index]
             Environment = var.environment_list[count.index]
             ResourceGroup = var.tfrun_identifier
 
