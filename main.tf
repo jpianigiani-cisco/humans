@@ -110,4 +110,37 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
          user_data = file("${path.module}/cloud-init-human.yaml")
        }
 
+      resource "null_resource" "backend-config"{ 
+         count =length(var.environment_list)
+         
+         
+         provisioner "remote-exec"{
+                     inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
+         }
+         #triggers = {
+         #   configfile = templatefile (   "${path.module}/backend.sh" , 
+         #                                 #{backendip = aws_instance.ec2_backend.private_ip}
+         #                                 {backendip = var.}
+         #   )
+         #}
+         provisioner "file" {
+            content     = "./mylocustfiles/locustfile.py"
+               destination = "/tmp/locustfile.py"
+         }
+         
+
+         provisioner "remote-exec" {
+               inline = [format("locust -f /tmp/locustfile.py -H %s",var.environment_list[count.index]),]
+         }
+         connection {
+               type        = "ssh"
+               user        = "ubuntu"
+               private_key = "${file("~/.ssh/${var.keyname}.pem")}"
+               host        = aws_instance.one_human.public_dns
+               agent       = false
+
+            }
+      
+      }
+
         

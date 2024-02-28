@@ -34,7 +34,6 @@ runcmd:
   - sudo systemctl start docker.service
   - sudo pip install locust
   - sudo id $USER
-  - locust
   - touch /tmp/signal
 
 
