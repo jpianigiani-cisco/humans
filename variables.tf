@@ -1,6 +1,6 @@
 variable "vpc_corporate_office_cidr_block" { 
-    type = string 
-    default="10.21.0.0/24"
+    type = "string"
+    default = "10.21.0.0/24"
     }
 variable "tenant_cidr" {
   type = "string" 
@@ -51,11 +51,12 @@ variable "PRO-frontend-nodes-public-ips" {
 # ec2 instance type
 variable "ec2_instance_type_human" {
   description = "ec2 instance type"
-  type        = string
+  type        = "string"
   default     = "t2.small"
 }
 
 variable "humans" { 
+  type = "list(string)"
   default =  ["Jonny The Dev", "Sarah the Val","Brandon The Ops"]
    }
 
