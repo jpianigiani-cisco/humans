@@ -24,7 +24,7 @@ resource "aws_subnet" "corporate_subnet" {
 
          tags = {
             Name = format("mcd-demo-%s-%s-%s-subnet-%s",var.environment_list[count.index],var.application_name,var.tfrun_identifier)
-            Tier = local.vpc_names[0]
+            Tier = "humans"
             Application = var.application_name
             Environment = var.environment_list[count.index]
             ResourceGroup =var.tfrun_identifier
