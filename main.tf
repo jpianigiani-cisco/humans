@@ -1,5 +1,5 @@
 locals{
-    corporate_subnets_list_vpc = cidrsubnets(var.vpc_corporate_office_cidr_block,[ for i in range(length(var.humans)): 8]...)
+    corporate_subnets_list_vpc = cidrsubnets(var.vpc_corporate_office_cidr_block,[ for i in range(length(var.humans)): 3]...)
 }
 
 resource "aws_vpc" "teashop_office" {
