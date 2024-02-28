@@ -39,10 +39,11 @@ resource "aws_subnet" "corporate_subnet" {
 resource "aws_security_group" "human_sg" {
       name        = "human_sg"
       description = "Allow anything to dev, val , prod"
-      vpc_id      = aws_vpc.teashop_office
+      vpc_id      = aws_vpc.teashop_office.id
 
       tags = {
-         Name = format("mcd-demo-%s-humans-sg-%s",var.application_name,var.tfrun_identifier)
+         Name = format("mcd-demo-%s-humans-sg-%s",
+            var.application_name,var.tfrun_identifier)
          Tier = "humans"
          Application = var.application_name
          ResourceGroup = var.tfrun_identifier
