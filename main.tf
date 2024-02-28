@@ -90,7 +90,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
          key_name                = var.keyname
          associate_public_ip_address = true
 
-         vpc_security_group_ids  = [aws_security_group.human_sg]
+         vpc_security_group_ids  = [aws_security_group.human_sg.id]
          root_block_device {
             volume_size = 10 # in GB 
             volume_type = "gp3"
