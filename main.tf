@@ -85,7 +85,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
         ami                     = var.ec2_instance_ami
         instance_type           = var.ec2_instance_type_human
         availability_zone       = var.az1
-         subnet_id               = aws_subnet.corporate_subnet[count.index]
+         subnet_id               = aws_subnet.corporate_subnet[count.index].id
       
          key_name                = var.keyname
          associate_public_ip_address = true
