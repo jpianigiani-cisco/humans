@@ -101,7 +101,8 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
 
 
          }
-         #user_data = file("${path.module}/cloud-init-backend.yaml")
+         
+         user_data = file("${path.module}/cloud-init-human.yaml")
        }
 
         resource "null_resource" "backend-config"{ 

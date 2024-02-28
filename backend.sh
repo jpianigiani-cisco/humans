@@ -1,15 +1,12 @@
   
-
-
-for i in ${cat mcd_inpus.tfvars}:
+for i in ${cat mcd_inpus.tfvars | grep public-ips}:
 do
   curl $i
 
   ssh "ubuntu@$i" << EOF
   ls /tmp
-  ./someaction.sh 'some params'
+  docker ps
   pwd
-  ./some_other_action 'other params'
-EOF 'ps -ef | grep apache | grep -v grep | wc -l'
+EOF 
 done
 
