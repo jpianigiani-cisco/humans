@@ -136,7 +136,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
                type        = "ssh"
                user        = "ubuntu"
                private_key = "${file("~/.ssh/${var.keyname}.pem")}"
-               host        = aws_instance.one_human.public_dns
+               host        = aws_instance.one_human[count.index].public_dns
                agent       = false
 
             }
