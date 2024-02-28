@@ -36,6 +36,28 @@ resource "aws_subnet" "corporate_subnet" {
          }
       }
 
+ # ------------------------------------------------------  
+      # INTERNET GATEWAYS
+      # creating internet gateway for Front End
+   resource "aws_internet_gateway" "corporate_igw_" {
+         vpc_id = aws_vpc.teashop_office.id
+   
+         tags = {
+            Name = format("mcd-demo-%s-%s-igw-%s",
+                  "OFFICE", 
+                  var.application_name,
+                  var.tfrun_identifier)
+            #Name = "mcd-demo-teashop-frontend-igw"
+            Tier = "humans"
+            Application = var.application_name
+            Environment = "office"
+            ResourceGroup =var.tfrun_identifier
+   
+         }
+      } 
+   
+
+
 resource "aws_security_group" "human_sg" {
       name        = "human_sg"
       description = "Allow anything to dev, val , prod"
