@@ -27,10 +27,7 @@ variable "ec2_instance_ami" {
   type = string
   default = ""
   }
-variable "ec2_instance_type_human" {
-    type =string
-    default = ""
-    }
+
 variable "keyname" {
   type = string
   default = ""
@@ -56,7 +53,7 @@ variable "ec2_instance_type_human" {
 }
 
 variable "humans" { 
-  type = "list(string)"
+  type = list(string)
   default =  ["Jonny The Dev", "Sarah the Val","Brandon The Ops"]
    }
 
