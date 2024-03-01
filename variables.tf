@@ -16,7 +16,8 @@ variable "tfrun_identifier" {
 }
 variable "environment_list" {
   type = list(string) 
-  default = ["DEV","VAL","PRO"]
+  default = ["DEV"]
+  #,"VAL","PRO"]
 }
 variable "az1" {
   type = string 

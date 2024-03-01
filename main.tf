@@ -152,7 +152,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_frontend" {
          
 
          provisioner "remote-exec" {
-               inline = [format("locust -f /tmp/locustfile.py -H %s",var.environment_list[count.index]),]
+               inline = [format("locust -f /tmp/locustfile.py -H %s-frontend-nodes-public-ips",var.environment_list[count.index]),]
          }
          connection {
                type        = "ssh"
