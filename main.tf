@@ -72,7 +72,7 @@ resource "aws_subnet" "corporate_subnet" {
          }
 
          tags = {
-            Name = format("mcd-demo-teashopoffice-to-igw-rt-%s-%s",var.application_name,local.tfrun_identifier)
+            Name = format("mcd-demo-teashopoffice-to-igw-rt-%s-%s",var.application_name,var.tfrun_identifier)
             Tier = "teashop-office"
             Application = var.application_name
             Environment = "humans"
