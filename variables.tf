@@ -40,7 +40,7 @@ variable "frontend-nodes-public-fqdns" {
 variable "ec2_instance_type_human" {
   description = "ec2 instance type"
   type        = string
-  default     = "t2.small"
+  default     = "t2.medium"
 }
 variable "humans" { 
   type = list(string)
