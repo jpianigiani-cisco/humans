@@ -34,9 +34,16 @@ runcmd:
   #- sudo apt-get -y install docker-ce docker-ce-cli containerd.io
   #- sudo systemctl enable docker
   #- sudo systemctl start docker.service
-  
   #- sudo pip3 install locust
   - sudo apt install -y python3-locust
+  - sudo touch /etc/systemd/system.conf.d/limits.conf
+  - sudo cat << EOF > /etc/systemd/system.conf.d/limits.conf
+[Manager]
+DefaultLimitNOFILE=1048576:2097152
+DefaultLimitNPROC=262144:524288
+EOF
+  - systemctl daemon-reexec
+
   - sudo id $USER
   - touch /tmp/signal
 
