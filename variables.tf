@@ -25,7 +25,8 @@ variable "az1" {
 }
 variable "ec2_instance_ami" {
   type = string
-  default =     "ami-0c7217cdde317cfec"
+  #default =     "ami-0c7217cdde317cfec"
+  default =   "ami-07d9b9ddc6cd8dd30"
 }
 variable "keyname"{
   description = "name of RSA Key to use to connect Terraform to EC2 instances"
