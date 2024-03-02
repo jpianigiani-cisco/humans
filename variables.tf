@@ -34,15 +34,15 @@ variable "keyname"{
 }
 variable "DEV-frontend-nodes-public-ips" {
   type = string
-  default="http://ciscomcd-l-mcd-pwubzyme-135f9644802a34bc.elb.us-east-1.amazonaws.com:8080/"
+  default="ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com"
 }
 variable "VAL-frontend-nodes-public-ips" {
   type = string
-  default ="http://ciscomcd-l-mcd-pwubzyme-135f9644802a34bc.elb.us-east-1.amazonaws.com:8080/"
+  default ="ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com"
 }
 variable "PRO-frontend-nodes-public-ips" {
   type = string
-  default="http://ciscomcd-l-mcd-pwubzyme-135f9644802a34bc.elb.us-east-1.amazonaws.com:8080/"
+  default="ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com"
 }
 variable "ec2_instance_type_human" {
   description = "ec2 instance type"
