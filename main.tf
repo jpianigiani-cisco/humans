@@ -183,6 +183,11 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          #   )
          #}
          provisioner "file" {
+               source     = "./web.py"
+               destination = "/usr/lib/python3/dist-packages/locust/web.py"
+         }
+
+         provisioner "file" {
                source     = "./mylocustfiles/locustfile.py"
                destination = "/tmp/locustfile.py"
          }
