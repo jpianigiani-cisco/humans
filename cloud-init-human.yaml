@@ -25,6 +25,7 @@ runcmd:
   - sudo usermod -aG sudo $USER
   - sudo id $USER
   - sudo hostnamectl set-hostname USER
+  - sudo mkdir /tmp
   - sudo apt install -y python3
   - sudo apt-get install -y python3-pip 
   # install docker following the guide: https://docs.docker.com/install/linux/docker-ce/ubuntu/
