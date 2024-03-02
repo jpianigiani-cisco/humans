@@ -34,7 +34,8 @@ runcmd:
   #- sudo systemctl start docker.service
   #- sudo pip3 install locust
   - sudo apt install -y python3-locust
-  - sudo touch /etc/systemd/system.conf.d/limits.conf
+  - sudo ulimit -a
+  - sudo ulimit -Sn > /tmp/openfilelimit.log
   - sudo id $USER
   - touch /tmp/signal
 
