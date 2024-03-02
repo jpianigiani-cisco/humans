@@ -80,14 +80,14 @@ resource "aws_subnet" "corporate_subnet" {
          }
    }
    resource "aws_main_route_table_association" "public"{
-            vpc_id = aws_vpc.teashop_office
-            route_table_id = aws_route_table.rt_office
+            vpc_id = aws_vpc.teashop_office.id
+            route_table_id = aws_route_table.rt_office.id
    }
    # ROUTE TABLE ASSOCIATIONS
    # associate route table to the public subnet
    resource "aws_route_table_association" "rt_office_rt" {
       count =length(var.environment_list)
-      subnet_id      = aws_subnet.corporate_subnet[count.index]
+      subnet_id      = aws_subnet.corporate_subnet[count.index].id
       route_table_id = aws_route_table.rt_office.id
       }
 #------
