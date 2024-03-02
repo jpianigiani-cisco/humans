@@ -4,8 +4,6 @@ package_upgrade: true
 
 packages:
   - curl
-  - python3
-  - pip3
 
 groups:
   - sudo
