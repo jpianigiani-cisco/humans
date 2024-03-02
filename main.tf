@@ -177,13 +177,13 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          
          
          #triggers = {
-         #   configfile = templatefile (   "${path.module}/backend.sh" , 
-         #                                 #{backendip = aws_instance.ec2_backend.private_ip}
+         #   configfile = templatefile (   "${path.module}/human.sh" , 
+         #                                 #{frontendip = aws_instance.ec2_backend.private_ip}
          #                                 {backendip = var.}
          #   )
          #}
          provisioner "file" {
-            content     = "./mylocustfiles/locustfile.py"
+               source     = "./mylocustfiles/locustfile.py"
                destination = "/tmp/locustfile.py"
          }
          
