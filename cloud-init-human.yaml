@@ -34,8 +34,9 @@ runcmd:
   #- sudo apt-get -y install docker-ce docker-ce-cli containerd.io
   #- sudo systemctl enable docker
   #- sudo systemctl start docker.service
-  - sudo pip3 install locust
-  #- sudo apt install python3-locust
+  
+  #- sudo pip3 install locust
+  - sudo apt install -y python3-locust
   - sudo id $USER
   - touch /tmp/signal
 
