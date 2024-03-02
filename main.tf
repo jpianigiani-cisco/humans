@@ -202,7 +202,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          
 
          provisioner "remote-exec" {
-               inline = [format("locust -f /tmp/locustfile.py -H http://%s ",var.frontend-nodes-public-fqdns[count.index])]
+               inline = [format("locust -f /tmp/locustfile.py -H http://%s &",var.frontend-nodes-public-fqdns[count.index])]
          }
          connection {
                type        = "ssh"
