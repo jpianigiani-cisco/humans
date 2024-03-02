@@ -58,9 +58,39 @@ resource "aws_subnet" "corporate_subnet" {
          depends_on = [aws_vpc.teashop_office]
 
       } 
-   
+#-----
 
 
+   # ---------------------------------------------
+   # ROUTE TABLES - FRONTEND
+   # creating route table for Front End - Allow 0/0 in as it needs to be provisioned by TF
+   resource "aws_route_table" "rt_office" {
+         vpc_id = aws_vpc.teashop_office
+         route          {
+            cidr_block = "0.0.0.0/0"
+            gateway_id = aws_internet_gateway.corporate_igw
+         }
+
+         tags = {
+            Name = format("mcd-demo-teashopoffice-to-igw-rt-%s-%s",var.application_name,local.tfrun_identifier)
+            Tier = "teashop-office"
+            Application = var.application_name
+            Environment = "humans"
+            ResourceGroup = var.tfrun_identifier
+         }
+   }
+   resource "aws_main_route_table_association" "public"{
+            vpc_id = aws_vpc.teashop_office
+            route_table_id = aws_route_table.rt_office
+   }
+   # ROUTE TABLE ASSOCIATIONS
+   # associate route table to the public subnet
+   resource "aws_route_table_association" "rt_office_rt" {
+      count =length(var.environment_list)
+      subnet_id      = aws_subnet.corporate_subnet[count.index]
+      route_table_id = aws_route_table.rt_office.id
+      }
+#------
 resource "aws_security_group" "human_sg" {
       name        = "human_sg"
       description = "Allow anything to dev, val , prod"
