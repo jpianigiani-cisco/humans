@@ -65,10 +65,10 @@ resource "aws_subnet" "corporate_subnet" {
    # ROUTE TABLES - FRONTEND
    # creating route table for Front End - Allow 0/0 in as it needs to be provisioned by TF
    resource "aws_route_table" "rt_office" {
-         vpc_id = aws_vpc.teashop_office
+         vpc_id = aws_vpc.teashop_office.id
          route          {
             cidr_block = "0.0.0.0/0"
-            gateway_id = aws_internet_gateway.corporate_igw
+            gateway_id = aws_internet_gateway.corporate_igw.id
          }
 
          tags = {
