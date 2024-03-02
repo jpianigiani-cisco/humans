@@ -71,13 +71,13 @@ resource "aws_security_group" "human_sg" {
          ResourceGroup = var.tfrun_identifier
       }
       }
-#resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
-#      security_group_id = aws_security_group.human_sg.id
-#      cidr_ipv4         = "0.0.0.0/0"
-#      from_port         = 22
-#      ip_protocol       = "tcp"
-#      to_port           = 22
-#      }
+resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
+      security_group_id = aws_security_group.human_sg.id
+      cidr_ipv4         = "0.0.0.0/0"
+      from_port         = 22
+      ip_protocol       = "tcp"
+      to_port           = 22
+      }
 
       resource "aws_vpc_security_group_ingress_rule" "allow_in_1111_ipv4_human" {
       security_group_id = aws_security_group.human_sg.id
