@@ -51,5 +51,5 @@ variable "ec2_instance_type_human" {
 }
 variable "humans" { 
   type = list(string)
-  default =  ["JonnyTheDev", "SarahtheVal","BrandonTheOps"]
+  default =  ["teashop-office_floor1","teashop-office-floor2","teashop-office-groundfloor"]
 }
