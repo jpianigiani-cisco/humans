@@ -168,7 +168,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
        }
 
       resource "null_resource" "human-config"{ 
-         count =length(var.environment_list)
+         count = length(var.frontend-nodes-public-fqdns)
    
          
          provisioner "remote-exec"{
@@ -189,7 +189,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          
 
          provisioner "remote-exec" {
-               inline = [format("locust -f /tmp/locustfile.py -H %s-frontend-nodes-public-ips",var.environment_list[count.index]),]
+               inline = [format("locust -f /tmp/locustfile.py -H %s ",var.frontend-nodes-public-fqdns[count.index])]
          }
          connection {
                type        = "ssh"
