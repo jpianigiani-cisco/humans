@@ -39,7 +39,7 @@ resource "aws_subnet" "corporate_subnet" {
  # ------------------------------------------------------  
       # INTERNET GATEWAYS
       # creating internet gateway for Front End
-   resource "aws_internet_gateway" "corporate_igw_" {
+   resource "aws_internet_gateway" "corporate_igw" {
          vpc_id = aws_vpc.teashop_office.id
    
          tags = {
@@ -54,6 +54,9 @@ resource "aws_subnet" "corporate_subnet" {
             ResourceGroup =var.tfrun_identifier
    
          }
+
+         depends_on = [aws_vpc.teashop_office]
+
       } 
    
 
@@ -130,6 +133,8 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          }
          
          user_data = file("${path.module}/cloud-init-human.yaml")
+
+         depends_on = [  aws_security_group.human_sg, aws_vpc.teashop_office ]
        }
 
       resource "null_resource" "human-config"{ 
@@ -164,6 +169,8 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
                agent       = false
 
             }
+
+         depends_on = [ aws_instance.one_human ]
       
       }
 
