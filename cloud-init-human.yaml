@@ -5,7 +5,7 @@ package_upgrade: true
 packages:
   - curl
   - python3
-  - pip
+  - pip3
 
 groups:
   - sudo
@@ -21,7 +21,6 @@ system_info:
     sudo: ALL=(ALL) NOPASSWD:ALL
 
 runcmd:
-
   - sudo usermod -aG sudo $USER
   - sudo id $USER
   - sudo hostnamectl set-hostname USER
