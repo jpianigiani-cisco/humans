@@ -132,13 +132,15 @@ resource "aws_security_group" "human_sg" {
          user_data = file("${path.module}/cloud-init-human.yaml")
        }
 
-      resource "null_resource" "backend-config"{ 
+      resource "null_resource" "human-config"{ 
          count =length(var.environment_list)
+   
+         
+         #provisioner "remote-exec"{
+         #            inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
+         #}
          
          
-         provisioner "remote-exec"{
-                     inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
-         }
          #triggers = {
          #   configfile = templatefile (   "${path.module}/backend.sh" , 
          #                                 #{backendip = aws_instance.ec2_backend.private_ip}
