@@ -193,7 +193,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
                   "sudo cp /tmp/web.py /usr/lib/python3/dist-packages/locust/web.py",
                ]
             }
-         }
+         
 
          provisioner "file" {
                source     = "./mylocustfiles/locustfile.py"
