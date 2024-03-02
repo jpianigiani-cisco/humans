@@ -136,9 +136,9 @@ resource "aws_security_group" "human_sg" {
          count =length(var.environment_list)
    
          
-         #provisioner "remote-exec"{
-         #            inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
-         #}
+         provisioner "remote-exec"{
+                     inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
+         }
          
          
          #triggers = {
