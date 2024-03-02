@@ -184,7 +184,15 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          #}
          provisioner "file" {
                source     = "./web.py"
-               destination = "/usr/lib/python3/dist-packages/locust/web.py"
+               destination= "/tmp/web.py"
+         }
+
+         provisioner "remote-exec" {
+               inline = [
+                  "chmod +x /tmp/web.py",
+                  "sudo cp /tmp/web.py /usr/lib/python3/dist-packages/locust/web.py",
+               ]
+            }
          }
 
          provisioner "file" {
