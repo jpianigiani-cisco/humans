@@ -167,7 +167,9 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          depends_on = [  aws_security_group.human_sg, aws_vpc.teashop_office ]
        }
 
-      resource "null_resource" "human-config-0"{ 
+      resource "null_resource" "human-config-0"{
+         count =length(var.environment_list)
+ 
          provisioner "remote-exec"{
                      inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
          }
