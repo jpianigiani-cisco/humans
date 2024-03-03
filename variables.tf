@@ -35,7 +35,7 @@ variable "keyname"{
 }
 variable "frontend-nodes-public-fqdns" {
   type = list(string)
-  default=["ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com"]
+  default=["ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8280"]
 }
 variable "ec2_instance_type_human" {
   description = "ec2 instance type"
