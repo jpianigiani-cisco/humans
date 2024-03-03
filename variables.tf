@@ -33,10 +33,7 @@ variable "keyname"{
   type = string
   default = "terraform-key-devops-admin-ubuntu"
 }
-variable "frontend-nodes-public-fqdns" {
-  type = list(string)
-  default=["ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8280"]
-}
+
 variable "ec2_instance_type_human" {
   description = "ec2 instance type"
   type        = string
@@ -45,4 +42,8 @@ variable "ec2_instance_type_human" {
 variable "humans" { 
   type = list(string)
   default =  ["teashop-office_floor1","teashop-office-floor2","teashop-office-groundfloor"]
+}
+variable "frontend-nodes-public-fqdns" {
+  type = list(string)
+  default=["ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8080"]
 }

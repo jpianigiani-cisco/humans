@@ -167,43 +167,61 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          depends_on = [  aws_security_group.human_sg, aws_vpc.teashop_office ]
        }
 
-      resource "null_resource" "human-config"{ 
-         count = length(var.frontend-nodes-public-fqdns)
-   
-         
+      resource "null_resource" "human-config-0"{ 
          provisioner "remote-exec"{
                      inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
          }
          
-         
-         #triggers = {
-         #   configfile = templatefile (   "${path.module}/human.sh" , 
-         #                                 #{frontendip = aws_instance.ec2_backend.private_ip}
-         #                                 {backendip = var.}
-         #   )
-         #}
          provisioner "file" {
                source     = "./web.py"
                destination= "/tmp/web.py"
          }
-
          provisioner "remote-exec" {
                inline = [
                   "chmod +x /tmp/web.py",
                   "sudo cp /tmp/web.py /usr/lib/python3/dist-packages/locust/web.py",
                ]
             }
-         
-
          provisioner "file" {
                source     = "./mylocustfiles/locustfile.py"
                destination = "/tmp/locustfile.py"
          }
          
+         connection {
+               type        = "ssh"
+               user        = "ubuntu"
+               private_key = "${file("~/.ssh/${var.keyname}.pem")}"
+               host        = aws_instance.one_human[count.index].public_dns
+               agent       = false
 
-         provisioner "remote-exec" {
-               inline = [format("locust -f /tmp/locustfile.py -H http://%s &",var.frontend-nodes-public-fqdns[count.index])]
+            }
+      }
+
+      resource "null_resource" "human-config-1"{    
+         count = length(var.frontend-nodes-public-fqdns)
+
+         triggers = {
+            configfile = templatefile (   "${path.module}/human.sh" , 
+                                          {frontend_fqdn = var.frontend-nodes-public-fqdns[count.index]}
+                                       )
+                     }
+
+         provisioner "file" {
+         content     = self.triggers.configfile
+         destination = "/tmp/human.sh"
          }
+         provisioner "remote-exec" {
+            inline = ["chmod a+x /tmp/human.sh",
+                     "/tmp/human.sh",]
+                     # ${aws_instance.ec2_backend.private_ip}",]
+         
+         
+         }
+
+         #provisioner "remote-exec" {
+         #      inline = [format("locust -f /tmp/locustfile.py -H http://%s &",var.frontend-nodes-public-fqdns[count.index])]
+         #}
+
          connection {
                type        = "ssh"
                user        = "ubuntu"
