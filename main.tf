@@ -233,7 +233,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
 
             }
 
-         depends_on = [ aws_instance.one_human ]
+         depends_on = [ aws_instance.one_human, null_resource.human-config-0 ]
       
       }
 

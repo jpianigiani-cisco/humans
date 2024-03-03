@@ -45,5 +45,6 @@ variable "humans" {
 }
 variable "frontend-nodes-public-fqdns" {
   type = list(string)
-  default=["ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8080"]
+  default=["ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8080",
+          "ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8180"]
 }
