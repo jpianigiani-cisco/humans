@@ -19,13 +19,13 @@ resource "aws_vpc" "teashop_office" {
 resource "aws_subnet" "corporate_subnet" {  
          #count =length(var.environment_list)
          vpc_id            = aws_vpc.teashop_office.id
-         cidr_block        = local.corporate_subnets_list_vpc[count.index]
+         cidr_block        = local.corporate_subnets_list_vpc[0]
          availability_zone = var.az1
 
          tags = {
             Name = format(
                "mcd-demo-%s-%s-subnet-%s",
-               var.environment_list[count.index],
+               "shared", #var.environment_list[count.index],
                var.application_name,
                var.tfrun_identifier)
             Tier = "humans"
