@@ -200,7 +200,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
       }
 
       resource "null_resource" "human-config-1"{    
-         count = length(var.frontend-nodes-public-fqdns)
+         count =length(var.environment_list)
 
          triggers = {
             configfile = templatefile (   "${path.module}/human.sh" , 
