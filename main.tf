@@ -214,7 +214,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
          }
          provisioner "remote-exec" {
             inline = ["chmod a+x /tmp/human.sh",
-                     "/tmp/human.sh ${var.frontend-nodes-public-fqdns[count.index]} ${var.frontend-nodes-public-fqdns_ssh[count.index]}",]
+                     "/tmp/human.sh ${var.frontend-nodes-public-fqdns[count.index]} ${var.frontend-nodes-public-fqdns_ssh[count.index]} &",]
                      # ${aws_instance.ec2_backend.private_ip}",]
          
          
