@@ -45,14 +45,14 @@ variable "humans" {
 }
 variable "frontend-nodes-public-fqdns" {
   type = list(string)
-  default=["ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8080",
-          "ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8180",
-          "ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8280"]
+  default=["ciscomcd-l-mcd-ctsmtgks-a69bcac4b46fec01.elb.us-east-1.amazonaws.com:8080",
+          "ciscomcd-l-mcd-ctsmtgks-a69bcac4b46fec01.elb.us-east-1.amazonaws.com:8180",
+          "ciscomcd-l-mcd-ctsmtgks-a69bcac4b46fec01.elb.us-east-1.amazonaws.com:8280"]
 }
 
 variable "frontend-nodes-public-fqdns_ssh" {
   type = list(string)
-  default=["ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8022",
-          "ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8122",
-          "ciscomcd-l-mcd-fryvyect-def871c80a917fb2.elb.us-east-1.amazonaws.com:8222"]
+  default=["ciscomcd-l-mcd-ctsmtgks-a69bcac4b46fec01.elb.us-east-1.amazonaws.com:8022",
+          "ciscomcd-l-mcd-ctsmtgks-a69bcac4b46fec01.elb.us-east-1.amazonaws.com:8122",
+          "ciscomcd-l-mcd-ctsmtgks-a69bcac4b46fec01.elb.us-east-1.amazonaws.com:8222"]
 }
