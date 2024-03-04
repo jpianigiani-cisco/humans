@@ -17,7 +17,7 @@ resource "aws_vpc" "teashop_office" {
       }
 
 resource "aws_subnet" "corporate_subnet" {  
-         count =length(var.environment_list)
+         #count =length(var.environment_list)
          vpc_id            = aws_vpc.teashop_office.id
          cidr_block        = local.corporate_subnets_list_vpc[count.index]
          availability_zone = var.az1
@@ -30,7 +30,7 @@ resource "aws_subnet" "corporate_subnet" {
                var.tfrun_identifier)
             Tier = "humans"
             Application = var.application_name
-            Environment = var.environment_list[count.index]
+            Environment = "shared" #var.environment_list[count.index]
             ResourceGroup =var.tfrun_identifier
 
          }
@@ -86,8 +86,8 @@ resource "aws_subnet" "corporate_subnet" {
    # ROUTE TABLE ASSOCIATIONS
    # associate route table to the public subnet
    resource "aws_route_table_association" "rt_office_rt" {
-      count =length(var.environment_list)
-      subnet_id      = aws_subnet.corporate_subnet[count.index].id
+      #count =length(var.environment_list)
+      subnet_id      = aws_subnet.corporate_subnet.id #[count.index].id
       route_table_id = aws_route_table.rt_office.id
       }
 #------
@@ -136,11 +136,11 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
 
 
       resource "aws_instance" "one_human" {
-        count =length(var.environment_list)
+        #count =length(var.environment_list)
         ami                     = var.ec2_instance_ami
         instance_type           = var.ec2_instance_type_human
         availability_zone       = var.az1
-         subnet_id               = aws_subnet.corporate_subnet[count.index].id
+         subnet_id               = aws_subnet.corporate_subnet.id #[count.index].id
       
          key_name                = var.keyname
          associate_public_ip_address = true
@@ -152,11 +152,11 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
             encrypted   = false
          } 
          tags = {
-            Name = format("mcd-demo-humans-%s-%s-%s-%s",var.application_name,var.environment_list[count.index],var.humans[count.index],var.tfrun_identifier)
+            Name = format("mcd-demo-humans-%s-%s-%s-%s",var.application_name,"shared","",var.tfrun_identifier)
             #Name = "mcd-demo-teashop-backend"
             Tier = "humans"
-            Application = var.humans[count.index]
-            Environment = var.environment_list[count.index]
+            Application = var.application_name #humans[count.index]
+            Environment = "shared" #var.environment_list[count.index]
             ResourceGroup = var.tfrun_identifier
 
 
@@ -168,7 +168,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
        }
 
       resource "null_resource" "human-config-0"{
-         count =length(var.environment_list)
+         #count =length(var.environment_list)
  
          provisioner "remote-exec"{
                      inline = ["while [ ! -f /tmp/signal ]; do sleep 3; done",]
@@ -193,14 +193,14 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
                type        = "ssh"
                user        = "ubuntu"
                private_key = "${file("~/.ssh/${var.keyname}.pem")}"
-               host        = aws_instance.one_human[count.index].public_dns
+               host        = aws_instance.one_human.public_dns
                agent       = false
 
             }
       }
 
       resource "null_resource" "human-config-1"{    
-         count =length(var.environment_list)
+         count =length(var.frontend-nodes-public-fqdns)
 
          triggers = {
             configfile = templatefile (   "${path.module}/human.sh" , 
@@ -228,7 +228,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
                type        = "ssh"
                user        = "ubuntu"
                private_key = "${file("~/.ssh/${var.keyname}.pem")}"
-               host        = aws_instance.one_human[count.index].public_dns
+               host        = aws_instance.one_human.public_dns
                agent       = false
 
             }
