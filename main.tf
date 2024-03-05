@@ -199,7 +199,9 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
             }
       }
 
-      resource "null_resource" "human-config-1"{    
+ 
+
+           resource "null_resource" "human-config-1"{    
          count =length(var.frontend-nodes-public-fqdns)
 
          triggers = {
@@ -237,4 +239,36 @@ resource "aws_vpc_security_group_ingress_rule" "allow_in_ssh_ipv4_human"{
       
       }
 
+     resource "null_resource" "human-config-2"{    
+         count =length(var.frontend-nodes-public-fqdns)
+
+         triggers = {
+            configfile = templatefile (   "${path.module}/human-ssh.sh" , 
+                                          {frontend_fqdn = var.frontend-nodes-public-fqdns[count.index]}
+                                       )
+                     }
+         provisioner "file" {
+         content     = self.triggers.configfile
+         destination = "/tmp/human-ssh.sh"
+         }
+         provisioner "remote-exec" {
+            inline = ["chmod a+x /tmp/human-ssh.sh",
+                     "/tmp/human-ssh.sh ${var.frontend-nodes-public-fqdns[count.index]} ${var.frontend-nodes-public-fqdns_ssh[count.index]} &",]
+                     # ${aws_instance.ec2_backend.private_ip}",]
+         }
+
+         #provisioner "remote-exec" {
+         #      inline = [format("locust -f /tmp/locustfile.py -H http://%s &",var.frontend-nodes-public-fqdns[count.index])]
+         #}
+         connection {
+               type        = "ssh"
+               user        = "ubuntu"
+               private_key = "${file("~/.ssh/${var.keyname}.pem")}"
+               host        = aws_instance.one_human.public_dns
+               agent       = false
+
+            }
+         depends_on = [ aws_instance.one_human, null_resource.human-config-0 ]
+      
+      }
         
